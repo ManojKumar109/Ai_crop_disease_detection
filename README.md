@@ -1,73 +1,31 @@
-# Welcome to your Lovable project
+# 🌿 AI Crop Leaf Disease Detection
 
-## Project info
+An AI-powered web application that detects plant leaf diseases using deep learning.  
+Built with **React (Vite)** for the frontend, **Supabase** for authentication, database, and image storage, and a **trained AI model** for disease prediction.
 
-**URL**: https://lovable.dev/projects/a8970193-6cb9-49c4-bdaa-b6dc4b53c977
+---
+🔗 **Live Website:** [https://aicropdiseasedetection.netlify.app/](https://aicropdiseasedetection.netlify.app/)
 
-## How can I edit this code?
+## 🚀 Features
 
-There are several ways of editing your application.
+- 🌱 Upload a crop leaf image for disease detection  
+- 🤖 AI model predicts the disease name and confidence score  
+- 🧾 View your past detection history  
+- 👤 User authentication and profile management (via Supabase Auth)  
+- ☁️ Image storage and access (via Supabase Storage)  
+- 📊 Secure backend with Row Level Security (RLS)  
+- 🌐 Fully deployable on VPS / cloud
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/a8970193-6cb9-49c4-bdaa-b6dc4b53c977) and start prompting.
+## 🧠 Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+| Layer | Technology |
+|-------|-------------|
+| Frontend | React (Vite), Tailwind CSS |
+| Backend | Supabase (Database + Auth + Storage) |
+| Model | TensorFlow / PyTorch (pretrained leaf disease model) |
+| Deployment | netlify |
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/a8970193-6cb9-49c4-bdaa-b6dc4b53c977) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
