@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Mail, MessageSquare, Send, ArrowLeft, Loader2, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, MessageSquare, Send, ArrowLeft, Loader2 } from "lucide-react";
 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
@@ -30,12 +30,12 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-subtle">
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5">
       {/* Header */}
-      <header className="border-b border-border/50 bg-card/80 backdrop-blur-md sticky top-0 z-50 shadow-soft">
-        <div className="container mx-auto px-4 py-5">
-          <Button variant="ghost" size="lg" onClick={() => navigate("/")}>
-            <ArrowLeft className="h-5 w-5 mr-2" />
+      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10">
+        <div className="container mx-auto px-4 py-4">
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")}>
+            <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
           </Button>
         </div>
@@ -43,30 +43,27 @@ const Contact = () => {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <div className="inline-flex p-3 bg-primary/10 rounded-2xl mb-4">
-              <MessageSquare className="h-10 w-10 text-primary" />
-            </div>
-            <h1 className="text-5xl font-bold mb-4">Get in Touch</h1>
-            <p className="text-2xl text-muted-foreground max-w-2xl mx-auto">
+            <h1 className="text-4xl font-bold mb-4">Get in Touch</h1>
+            <p className="text-xl text-muted-foreground">
               Have questions or feedback? We'd love to hear from you
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             {/* Contact Form */}
-            <Card className="shadow-strong border-border/50">
+            <Card>
               <CardHeader>
-                <CardTitle className="text-2xl">Send us a message</CardTitle>
-                <CardDescription className="text-base">
+                <CardTitle>Send us a message</CardTitle>
+                <CardDescription>
                   Fill out the form below and we'll respond as soon as possible
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="contact-name" className="text-base font-medium">Name</Label>
+                    <Label htmlFor="contact-name">Name</Label>
                     <Input
                       id="contact-name"
                       type="text"
@@ -75,11 +72,10 @@ const Contact = () => {
                       onChange={(e) => setName(e.target.value)}
                       required
                       disabled={loading}
-                      className="h-12 text-base"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="contact-email" className="text-base font-medium">Email</Label>
+                    <Label htmlFor="contact-email">Email</Label>
                     <Input
                       id="contact-email"
                       type="email"
@@ -88,11 +84,10 @@ const Contact = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                       disabled={loading}
-                      className="h-12 text-base"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="contact-message" className="text-base font-medium">Message</Label>
+                    <Label htmlFor="contact-message">Message</Label>
                     <Textarea
                       id="contact-message"
                       placeholder="Tell us how we can help..."
@@ -101,18 +96,17 @@ const Contact = () => {
                       onChange={(e) => setMessage(e.target.value)}
                       required
                       disabled={loading}
-                      className="text-base"
                     />
                   </div>
-                  <Button type="submit" className="w-full h-12 text-base shadow-medium" disabled={loading} size="lg">
+                  <Button type="submit" className="w-full" disabled={loading}>
                     {loading ? (
                       <>
-                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         Sending...
                       </>
                     ) : (
                       <>
-                        <Send className="mr-2 h-5 w-5" />
+                        <Send className="mr-2 h-4 w-4" />
                         Send Message
                       </>
                     )}
@@ -123,68 +117,51 @@ const Contact = () => {
 
             {/* Contact Information */}
             <div className="space-y-6">
-              <Card className="shadow-medium border-border/50">
+              <Card>
                 <CardHeader>
-                  <CardTitle className="text-xl flex items-center gap-3">
-                    <Mail className="h-6 w-6 text-primary" />
+                  <CardTitle className="flex items-center gap-2">
+                    <Mail className="h-5 w-5 text-primary" />
                     Email Support
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground mb-3">
+                  <p className="text-sm text-muted-foreground mb-2">
                     For general inquiries and support
                   </p>
                   <a
-                    href="mailto:support@leafwise.ai"
-                    className="text-lg text-primary hover:underline font-medium"
+                    href="mailto:support@plantcare.ai"
+                    className="text-primary hover:underline"
                   >
-                    support@leafwise.ai
+                    support@plantcare.ai
                   </a>
                 </CardContent>
               </Card>
 
-              <Card className="shadow-medium border-border/50">
+              <Card>
                 <CardHeader>
-                  <CardTitle className="text-xl flex items-center gap-3">
-                    <Phone className="h-6 w-6 text-primary" />
-                    Phone Support
+                  <CardTitle className="flex items-center gap-2">
+                    <MessageSquare className="h-5 w-5 text-primary" />
+                    Feedback
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground mb-3">
-                    Call us during business hours
-                  </p>
-                  <p className="text-lg font-medium">+1 (555) 123-4567</p>
-                </CardContent>
-              </Card>
-
-              <Card className="shadow-medium border-border/50">
-                <CardHeader>
-                  <CardTitle className="text-xl flex items-center gap-3">
-                    <Clock className="h-6 w-6 text-primary" />
-                    Response Time
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    We typically respond to all inquiries within 24-48 hours during business days.
-                    For urgent technical issues, please call our support line.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20 shadow-medium">
-                <CardHeader>
-                  <CardTitle className="text-xl flex items-center gap-3">
-                    <MessageSquare className="h-6 w-6 text-primary" />
-                    Feedback Welcome
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-sm text-muted-foreground">
                     We're constantly improving our AI models and user experience. Your feedback
                     helps us serve farmers better. Share your thoughts, suggestions, or report any
                     issues you encounter.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-primary/5 border-primary/20">
+                <CardHeader>
+                  <CardTitle>Response Time</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    We typically respond to all inquiries within 24-48 hours during business days.
+                    For urgent technical issues, please mark your message as "Urgent" in the
+                    subject line.
                   </p>
                 </CardContent>
               </Card>
