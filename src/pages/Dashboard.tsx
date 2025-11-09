@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Upload, LogOut, Leaf, History, Loader2 } from "lucide-react";
+import { Upload, LogOut, Leaf, History, Loader2, Camera, Sparkles } from "lucide-react";
 import { User, Session } from "@supabase/supabase-js";
 
 interface DetectionResult {
@@ -53,13 +53,11 @@ const Dashboard = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Validate file type
     if (!file.type.startsWith("image/")) {
       toast.error("Please upload an image file");
       return;
     }
 
-    // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       toast.error("Image size should be less than 5MB");
       return;
@@ -69,13 +67,11 @@ const Dashboard = () => {
     setResult(null);
 
     try {
-      // Convert image to base64
       const reader = new FileReader();
       reader.onloadend = async () => {
         const base64Image = reader.result as string;
         setSelectedImage(base64Image);
 
-        // Upload to storage
         const fileExt = file.name.split(".").pop();
         const fileName = `${user?.id}/${Date.now()}.${fileExt}`;
 
@@ -89,7 +85,6 @@ const Dashboard = () => {
           .from("leaf-images")
           .getPublicUrl(fileName);
 
-        // Analyze with AI
         setAnalyzing(true);
         const { data: detectionData, error: detectionError } = await supabase.functions.invoke(
           "detect-disease",
@@ -102,7 +97,6 @@ const Dashboard = () => {
 
         setResult(detectionData);
 
-        // Save to database
         const { error: dbError } = await supabase.from("detections").insert({
           user_id: user?.id,
           image_url: publicUrl,
@@ -129,32 +123,38 @@ const Dashboard = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-subtle">
+        <Loader2 className="h-10 w-10 animate-spin text-primary" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5">
+    <div className="min-h-screen bg-gradient-subtle">
       {/* Header */}
-      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Leaf className="h-6 w-6 text-primary" />
-            <h1 className="text-xl font-bold">PlantCare AI</h1>
+      <header className="border-b border-border/50 bg-card/80 backdrop-blur-md sticky top-0 z-50 shadow-soft">
+        <div className="container mx-auto px-4 py-5 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <Leaf className="h-7 w-7 text-primary" />
+            </div>
+            <div>
+              <span className="text-2xl font-bold">LeafWise</span>
+              <p className="text-xs text-muted-foreground">Disease Detection Dashboard</p>
+            </div>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <Button
-              variant="ghost"
-              size="sm"
+              variant="outline"
+              size="lg"
               onClick={() => navigate("/history")}
+              className="border-2"
             >
-              <History className="h-4 w-4 mr-2" />
+              <History className="h-5 w-5 mr-2" />
               History
             </Button>
-            <Button variant="ghost" size="sm" onClick={handleLogout}>
-              <LogOut className="h-4 w-4 mr-2" />
+            <Button variant="ghost" size="lg" onClick={handleLogout}>
+              <LogOut className="h-5 w-5 mr-2" />
               Logout
             </Button>
           </div>
@@ -162,46 +162,56 @@ const Dashboard = () => {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto space-y-6">
+      <main className="container mx-auto px-4 py-12">
+        <div className="max-w-5xl mx-auto space-y-8">
           {/* Welcome Card */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Welcome to Your Dashboard</CardTitle>
-              <CardDescription>
-                Upload a leaf image to detect diseases and get treatment recommendations
+          <Card className="bg-gradient-to-br from-primary/5 to-accent/5 border-border/50 shadow-medium">
+            <CardHeader className="pb-8">
+              <CardTitle className="text-3xl flex items-center gap-3">
+                <Sparkles className="h-8 w-8 text-primary" />
+                Welcome to Your Dashboard
+              </CardTitle>
+              <CardDescription className="text-lg mt-2">
+                Upload a clear image of a crop leaf to detect diseases and receive instant treatment recommendations
               </CardDescription>
             </CardHeader>
           </Card>
 
           {/* Upload Section */}
-          <Card>
+          <Card className="shadow-strong border-border/50">
             <CardHeader>
-              <CardTitle>Upload Leaf Image</CardTitle>
-              <CardDescription>
-                Take a clear photo of the leaf for accurate disease detection
+              <CardTitle className="text-2xl flex items-center gap-2">
+                <Camera className="h-6 w-6 text-primary" />
+                Upload Leaf Image
+              </CardTitle>
+              <CardDescription className="text-base">
+                Take a well-lit, clear photo of the affected leaf for most accurate results
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col items-center justify-center space-y-4">
-                <div className="w-full max-w-md">
+              <div className="flex flex-col items-center justify-center space-y-6">
+                <div className="w-full">
                   <label
                     htmlFor="image-upload"
-                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer bg-muted/30 hover:bg-muted/50 transition-colors"
+                    className="flex flex-col items-center justify-center w-full h-80 border-3 border-dashed border-border rounded-2xl cursor-pointer bg-secondary/20 hover:bg-secondary/30 transition-all duration-300"
                   >
                     {selectedImage ? (
                       <img
                         src={selectedImage}
                         alt="Selected leaf"
-                        className="w-full h-full object-contain rounded-lg"
+                        className="w-full h-full object-contain rounded-2xl p-4"
                       />
                     ) : (
-                      <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        <Upload className="w-12 h-12 mb-4 text-muted-foreground" />
-                        <p className="mb-2 text-sm text-muted-foreground">
-                          <span className="font-semibold">Click to upload</span> or drag and drop
+                      <div className="flex flex-col items-center justify-center py-12">
+                        <div className="p-6 bg-primary/10 rounded-full mb-6">
+                          <Upload className="w-16 h-16 text-primary" />
+                        </div>
+                        <p className="mb-3 text-xl font-semibold text-foreground">
+                          Click to upload or drag and drop
                         </p>
-                        <p className="text-xs text-muted-foreground">PNG, JPG (MAX. 5MB)</p>
+                        <p className="text-base text-muted-foreground">
+                          PNG, JPG, JPEG (Maximum 5MB)
+                        </p>
                       </div>
                     )}
                     <input
@@ -215,9 +225,9 @@ const Dashboard = () => {
                   </label>
                 </div>
                 {analyzing && (
-                  <div className="flex items-center gap-2 text-primary">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    <span className="text-sm">Analyzing image with AI...</span>
+                  <div className="flex items-center gap-3 text-primary bg-primary/10 px-6 py-4 rounded-full">
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                    <span className="text-base font-semibold">AI is analyzing your image...</span>
                   </div>
                 )}
               </div>
@@ -226,37 +236,40 @@ const Dashboard = () => {
 
           {/* Results Section */}
           {result && (
-            <Card className={result.isHealthy ? "border-primary" : "border-destructive"}>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+            <Card className={`shadow-strong ${result.isHealthy ? "border-primary border-2" : "border-destructive border-2"}`}>
+              <CardHeader className="pb-6">
+                <CardTitle className="text-3xl flex items-center gap-3">
                   <Leaf
-                    className={`h-5 w-5 ${
+                    className={`h-8 w-8 ${
                       result.isHealthy ? "text-primary" : "text-destructive"
                     }`}
                   />
                   Detection Results
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div>
-                    <p className="text-sm text-muted-foreground">Status</p>
-                    <p className="text-lg font-semibold">
-                      {result.isHealthy ? "Healthy" : "Disease Detected"}
+              <CardContent className="space-y-6">
+                <div className="grid gap-6 md:grid-cols-3">
+                  <div className="p-6 bg-secondary/20 rounded-xl">
+                    <p className="text-sm text-muted-foreground mb-2 font-medium uppercase">Status</p>
+                    <p className="text-2xl font-bold">
+                      {result.isHealthy ? "✓ Healthy" : "⚠ Disease Detected"}
                     </p>
                   </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Disease</p>
-                    <p className="text-lg font-semibold">{result.diseaseName}</p>
+                  <div className="p-6 bg-secondary/20 rounded-xl">
+                    <p className="text-sm text-muted-foreground mb-2 font-medium uppercase">Disease Type</p>
+                    <p className="text-2xl font-bold">{result.diseaseName}</p>
                   </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Confidence</p>
-                    <p className="text-lg font-semibold">{result.confidence}%</p>
+                  <div className="p-6 bg-secondary/20 rounded-xl">
+                    <p className="text-sm text-muted-foreground mb-2 font-medium uppercase">Confidence Level</p>
+                    <p className="text-2xl font-bold">{result.confidence}%</p>
                   </div>
                 </div>
-                <div>
-                  <p className="text-sm text-muted-foreground mb-2">Recommended Action</p>
-                  <p className="text-sm leading-relaxed">{result.remedy}</p>
+                <div className="p-6 bg-gradient-card rounded-xl border border-border/50">
+                  <p className="text-sm text-muted-foreground mb-3 font-medium uppercase flex items-center gap-2">
+                    <Sparkles className="h-4 w-4" />
+                    Recommended Treatment
+                  </p>
+                  <p className="text-base leading-relaxed">{result.remedy}</p>
                 </div>
               </CardContent>
             </Card>
