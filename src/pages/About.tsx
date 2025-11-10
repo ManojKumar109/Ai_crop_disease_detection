@@ -28,7 +28,7 @@ const About = () => {
                 <Leaf className="h-16 w-16 text-primary" />
               </div>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold">About LeafWise</h1>
+            <h1 className="text-5xl md:text-6xl font-bold">About AICDD</h1>
             <p className="text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Empowering farmers with AI-driven plant disease detection to increase productivity
               and reduce crop loss

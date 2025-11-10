@@ -135,10 +135,10 @@ const Contact = () => {
                     For general inquiries and support
                   </p>
                   <a
-                    href="mailto:support@leafwise.ai"
+                    href="mailto:support@aicdd.ai"
                     className="text-lg text-primary hover:underline font-medium"
                   >
-                    support@leafwise.ai
+                    support@aicdd.ai
                   </a>
                 </CardContent>
               </Card>

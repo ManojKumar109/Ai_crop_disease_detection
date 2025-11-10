@@ -89,7 +89,7 @@ const Auth = () => {
               </div>
             </div>
             <CardTitle className="text-3xl font-bold">
-              {isSignUp ? "Join LeafWise" : "Welcome Back"}
+              {isSignUp ? "Join AICDD" : "Welcome Back"}
             </CardTitle>
             <CardDescription className="text-base">
               {isSignUp

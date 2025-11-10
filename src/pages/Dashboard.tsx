@@ -139,8 +139,8 @@ const Dashboard = () => {
               <Leaf className="h-7 w-7 text-primary" />
             </div>
             <div>
-              <span className="text-2xl font-bold">LeafWise</span>
-              <p className="text-xs text-muted-foreground">Disease Detection Dashboard</p>
+              <span className="text-2xl font-bold">AICDD</span>
+              <p className="text-xs text-muted-foreground">AI Crop Disease Detection</p>
             </div>
           </div>
           <div className="flex items-center gap-3">

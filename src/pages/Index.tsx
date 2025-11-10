@@ -16,8 +16,8 @@ const Index = () => {
                 <Leaf className="h-5 w-5 sm:h-7 sm:w-7 text-primary" />
               </div>
               <div>
-                <span className="text-xl sm:text-2xl font-bold text-foreground">LeafWise AI</span>
-                <p className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">Smart Crop Disease Detection</p>
+                <span className="text-xl sm:text-2xl font-bold text-foreground">AICDD</span>
+                <p className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">AI Crop Disease Detection</p>
               </div>
             </Link>
             <div className="flex gap-2 sm:gap-3">
@@ -97,7 +97,7 @@ const Index = () => {
       <section className="py-12 sm:py-16 lg:py-20 bg-card/30">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-10 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">Why Choose LeafWise AI</h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">Why Choose AICDD</h2>
             <p className="text-base sm:text-lg lg:text-xl text-muted-foreground">Advanced AI technology designed for farmers and researchers</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
@@ -210,8 +210,8 @@ const Index = () => {
                 <Leaf className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
               </div>
               <div>
-                <span className="font-bold text-base sm:text-lg">LeafWise AI</span>
-                <p className="text-[10px] sm:text-xs text-muted-foreground">Crop Disease Detection</p>
+                <span className="font-bold text-base sm:text-lg">AICDD</span>
+                <p className="text-[10px] sm:text-xs text-muted-foreground">AI Crop Disease Detection</p>
               </div>
             </Link>
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8 text-sm sm:text-base order-3 lg:order-2">
@@ -220,7 +220,7 @@ const Index = () => {
               <Link to="/auth" className="text-muted-foreground hover:text-primary transition-colors font-medium">Login</Link>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors font-medium">Privacy</a>
             </div>
-            <p className="text-xs sm:text-sm text-muted-foreground order-2 lg:order-3">© 2025 LeafWise AI. All rights reserved.</p>
+            <p className="text-xs sm:text-sm text-muted-foreground order-2 lg:order-3">© 2025 AICDD. All rights reserved.</p>
           </div>
         </div>
       </footer>
