@@ -8,8 +8,6 @@ import { toast } from "sonner";
 import { Upload, LogOut, Leaf, History, Loader2, Camera, Sparkles, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { User, Session } from "@supabase/supabase-js";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { useLanguage } from "@/contexts/LanguageContext";
 
 interface DetectionResult {
   isHealthy: boolean;
@@ -19,7 +17,6 @@ interface DetectionResult {
 }
 
 const Dashboard = () => {
-  const { t } = useLanguage();
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(false);
@@ -150,7 +147,6 @@ const Dashboard = () => {
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
             <ThemeToggle />
-            <LanguageSwitcher />
             <Button
               variant="outline"
               size="lg"
@@ -158,11 +154,11 @@ const Dashboard = () => {
               className="border-2"
             >
               <History className="h-5 w-5 mr-2" />
-              {t("history")}
+              History
             </Button>
             <Button variant="ghost" size="lg" onClick={handleLogout}>
               <LogOut className="h-5 w-5 mr-2" />
-              {t("logout")}
+              Logout
             </Button>
           </div>
         </div>
@@ -176,10 +172,10 @@ const Dashboard = () => {
             <CardHeader className="pb-8">
               <CardTitle className="text-3xl flex items-center gap-3">
                 <Sparkles className="h-8 w-8 text-primary" />
-                {t("welcome")}
+                Welcome to Your Dashboard
               </CardTitle>
               <CardDescription className="text-lg mt-2">
-                {t("welcomeDesc")}
+                Upload a leaf image to detect diseases and get instant AI-powered recommendations
               </CardDescription>
             </CardHeader>
           </Card>
@@ -189,10 +185,10 @@ const Dashboard = () => {
             <CardHeader>
               <CardTitle className="text-2xl flex items-center gap-2">
                 <Camera className="h-6 w-6 text-primary" />
-                {t("uploadLeafImage")}
+                Upload Leaf Image
               </CardTitle>
               <CardDescription className="text-base">
-                {t("takePhoto")}
+                Take a clear photo of the affected leaf for accurate disease detection
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -214,7 +210,7 @@ const Dashboard = () => {
                           <Upload className="w-16 h-16 text-primary" />
                         </div>
                         <p className="mb-3 text-xl font-semibold text-foreground">
-                          {t("clickUpload")}
+                          Click to upload or drag and drop
                         </p>
                         <p className="text-base text-muted-foreground">
                           PNG, JPG, JPEG (Maximum 5MB)
@@ -234,7 +230,7 @@ const Dashboard = () => {
                 {analyzing && (
                   <div className="flex items-center gap-3 text-primary bg-primary/10 px-6 py-4 rounded-full animate-pulse">
                     <Loader2 className="h-5 w-5 animate-spin" />
-                    <span className="text-base font-semibold">{t("analyzing")}</span>
+                    <span className="text-base font-semibold">Analyzing your image...</span>
                   </div>
                 )}
               </div>
@@ -251,7 +247,7 @@ const Dashboard = () => {
                   ) : (
                     <AlertTriangle className="h-8 w-8 text-destructive" />
                   )}
-                  {t("detectionResults")}
+                  Detection Results
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -263,23 +259,23 @@ const Dashboard = () => {
                       ) : (
                         <AlertTriangle className="h-6 w-6 text-destructive" />
                       )}
-                      <p className="text-sm text-muted-foreground font-medium uppercase">{t("status")}</p>
+                      <p className="text-sm text-muted-foreground font-medium uppercase">Status</p>
                     </div>
                     <p className={`text-2xl font-bold ${result.isHealthy ? "text-primary" : "text-destructive"}`}>
-                      {result.isHealthy ? `✓ ${t("healthy")}` : `⚠ ${t("diseaseDetected")}`}
+                      {result.isHealthy ? "✓ Healthy" : "⚠ Disease Detected"}
                     </p>
                   </Card>
                   <Card className="p-6 bg-gradient-to-br from-secondary/20 to-secondary/10 border-border/50 shadow-soft hover:shadow-medium transition-shadow">
                     <div className="flex items-center gap-3 mb-3">
                       <Leaf className="h-6 w-6 text-primary" />
-                      <p className="text-sm text-muted-foreground font-medium uppercase">{t("diseaseType")}</p>
+                      <p className="text-sm text-muted-foreground font-medium uppercase">Disease Type</p>
                     </div>
                     <p className="text-2xl font-bold">{result.diseaseName}</p>
                   </Card>
                   <Card className="p-6 bg-gradient-to-br from-accent/10 to-accent/5 border-border/50 shadow-soft hover:shadow-medium transition-shadow">
                     <div className="flex items-center gap-3 mb-3">
                       <Sparkles className="h-6 w-6 text-primary" />
-                      <p className="text-sm text-muted-foreground font-medium uppercase">{t("confidenceLevel")}</p>
+                      <p className="text-sm text-muted-foreground font-medium uppercase">Confidence Level</p>
                     </div>
                     <p className="text-2xl font-bold mb-3">{result.confidence}%</p>
                     <Progress value={result.confidence} className="h-3 transition-all duration-500" />
@@ -288,7 +284,7 @@ const Dashboard = () => {
                 <Card className="p-6 bg-gradient-card border-border/50 shadow-soft">
                   <p className="text-sm text-muted-foreground mb-3 font-medium uppercase flex items-center gap-2">
                     <Sparkles className="h-4 w-4 text-primary" />
-                    {t("recommendedTreatment")}
+                    Recommended Treatment
                   </p>
                   <p className="text-base leading-relaxed">{result.remedy}</p>
                 </Card>
