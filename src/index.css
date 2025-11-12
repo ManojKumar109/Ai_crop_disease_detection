@@ -8,44 +8,52 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Cream and green agricultural theme */
-    --background: 45 30% 96%;
-    --foreground: 120 25% 20%;
+    /* Earthy agricultural theme - soil browns with crop greens */
+    --background: 30 25% 92%;
+    --foreground: 30 15% 15%;
 
-    --card: 40 40% 98%;
-    --card-foreground: 120 25% 20%;
+    --card: 30 20% 96%;
+    --card-foreground: 30 15% 15%;
 
-    --popover: 40 40% 98%;
-    --popover-foreground: 120 25% 20%;
+    --popover: 30 20% 96%;
+    --popover-foreground: 30 15% 15%;
 
-    --primary: 130 50% 45%;
+    --primary: 120 45% 40%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 40 45% 88%;
-    --secondary-foreground: 120 25% 20%;
+    --secondary: 30 30% 75%;
+    --secondary-foreground: 30 15% 15%;
 
-    --muted: 40 30% 92%;
-    --muted-foreground: 120 15% 45%;
+    --muted: 30 20% 88%;
+    --muted-foreground: 30 10% 45%;
 
-    --accent: 130 40% 55%;
+    --accent: 120 50% 45%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 40 25% 85%;
-    --input: 40 25% 90%;
-    --ring: 130 50% 45%;
+    --border: 30 20% 82%;
+    --input: 30 20% 90%;
+    --ring: 120 45% 40%;
 
     --radius: 1rem;
     
-    /* Agricultural design tokens */
-    --gradient-hero: linear-gradient(135deg, hsl(130 50% 45%) 0%, hsl(130 50% 35%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(40 40% 98%) 0%, hsl(40 35% 95%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(45 30% 96%) 0%, hsl(40 35% 92%) 100%);
-    --shadow-soft: 0 4px 20px -2px hsl(130 50% 45% / 0.12);
-    --shadow-medium: 0 8px 30px -4px hsl(130 50% 45% / 0.18);
-    --shadow-strong: 0 12px 40px -6px hsl(130 50% 45% / 0.25);
+    /* Natural agricultural design tokens */
+    --soil-brown: 30 35% 35%;
+    --crop-green: 120 45% 40%;
+    --leaf-green: 120 50% 45%;
+    --earth-brown: 30 30% 50%;
+    
+    --gradient-hero: linear-gradient(135deg, hsl(30 35% 35%) 0%, hsl(30 30% 25%) 50%, hsl(120 35% 30%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(30 20% 96%) 0%, hsl(30 18% 93%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(30 25% 92%) 0%, hsl(30 22% 88%) 100%);
+    --gradient-sunlight: linear-gradient(135deg, hsl(45 80% 85% / 0.3) 0%, hsl(120 50% 85% / 0.2) 100%);
+    --glow-green: 0 0 20px hsl(120 50% 45% / 0.4);
+    --glow-brown: 0 0 20px hsl(30 35% 35% / 0.3);
+    --shadow-soft: 0 4px 20px -2px hsl(30 35% 20% / 0.12);
+    --shadow-medium: 0 8px 30px -4px hsl(30 35% 20% / 0.18);
+    --shadow-strong: 0 12px 40px -6px hsl(30 35% 20% / 0.25);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
@@ -66,40 +74,48 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 120 20% 12%;
-    --foreground: 40 30% 90%;
+    --background: 30 20% 10%;
+    --foreground: 30 20% 90%;
 
-    --card: 120 18% 15%;
-    --card-foreground: 40 30% 90%;
+    --card: 30 18% 14%;
+    --card-foreground: 30 20% 90%;
 
-    --popover: 120 18% 15%;
-    --popover-foreground: 40 30% 90%;
+    --popover: 30 18% 14%;
+    --popover-foreground: 30 20% 90%;
 
-    --primary: 130 50% 45%;
+    --primary: 120 45% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 40 20% 25%;
-    --secondary-foreground: 40 30% 90%;
+    --secondary: 30 15% 22%;
+    --secondary-foreground: 30 20% 90%;
 
-    --muted: 120 15% 20%;
-    --muted-foreground: 40 20% 65%;
+    --muted: 30 12% 18%;
+    --muted-foreground: 30 15% 60%;
 
-    --accent: 130 40% 50%;
+    --accent: 120 50% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 60% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 120 15% 22%;
-    --input: 120 15% 20%;
-    --ring: 130 50% 45%;
+    --border: 30 15% 20%;
+    --input: 30 12% 18%;
+    --ring: 120 45% 45%;
     
-    --gradient-hero: linear-gradient(135deg, hsl(130 50% 35%) 0%, hsl(130 50% 25%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(120 18% 15%) 0%, hsl(120 18% 18%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(120 20% 12%) 0%, hsl(120 18% 16%) 100%);
-    --shadow-soft: 0 4px 20px -2px hsl(0 0% 0% / 0.4);
-    --shadow-medium: 0 8px 30px -4px hsl(0 0% 0% / 0.5);
-    --shadow-strong: 0 12px 40px -6px hsl(0 0% 0% / 0.6);
+    --soil-brown: 30 30% 25%;
+    --crop-green: 120 45% 45%;
+    --leaf-green: 120 50% 50%;
+    --earth-brown: 30 25% 35%;
+    
+    --gradient-hero: linear-gradient(135deg, hsl(30 30% 15%) 0%, hsl(30 25% 10%) 50%, hsl(120 30% 15%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(30 18% 14%) 0%, hsl(30 16% 16%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(30 20% 10%) 0%, hsl(30 18% 14%) 100%);
+    --gradient-sunlight: linear-gradient(135deg, hsl(45 60% 70% / 0.15) 0%, hsl(120 40% 70% / 0.1) 100%);
+    --glow-green: 0 0 25px hsl(120 50% 50% / 0.5);
+    --glow-brown: 0 0 25px hsl(30 30% 25% / 0.4);
+    --shadow-soft: 0 4px 20px -2px hsl(0 0% 0% / 0.5);
+    --shadow-medium: 0 8px 30px -4px hsl(0 0% 0% / 0.6);
+    --shadow-strong: 0 12px 40px -6px hsl(0 0% 0% / 0.7);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
