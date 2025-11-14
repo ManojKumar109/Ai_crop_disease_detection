@@ -55,14 +55,12 @@ const Index = () => {
               <span className="text-primary font-semibold text-xs sm:text-sm">Powered by CNN Deep Learning Technology</span>
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-              <span className="text-foreground">Protect Your Crops with</span>
-              <br />
               <span className="bg-gradient-to-r from-crop-green via-leaf-green to-crop-green bg-clip-text text-transparent animate-glow">
-                Smart Detection
+                Welcome to AI Crop Disease Detection 🌱
               </span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Advanced AI-powered leaf image diagnosis using Convolutional Neural Networks to detect crop diseases instantly. Get accurate results and treatment recommendations in seconds.
+              Upload or capture a photo to instantly identify plant diseases and get accurate treatment guidance.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center pt-6 sm:pt-8">
               <Link to="/auth" className="w-full sm:w-auto">
