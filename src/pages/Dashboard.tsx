@@ -221,8 +221,7 @@ const Dashboard = () => {
                       id="image-upload"
                       type="file"
                       className="hidden"
-                      accept="image/*"
-                      capture="environment"
+                      accept="image/*;capture=camera"
                       onChange={handleImageUpload}
                       disabled={loading}
                     />
