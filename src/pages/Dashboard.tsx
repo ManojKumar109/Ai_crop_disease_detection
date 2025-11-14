@@ -185,10 +185,10 @@ const Dashboard = () => {
             <CardHeader>
               <CardTitle className="text-2xl flex items-center gap-2">
                 <Camera className="h-6 w-6 text-primary" />
-                Upload Leaf Image
+                Detect Plant Diseases Instantly 🌱
               </CardTitle>
               <CardDescription className="text-base">
-                Take a clear photo of the affected leaf for accurate disease detection
+                Click to upload an image or use your camera to capture a fresh leaf photo for quick AI detection.
               </CardDescription>
             </CardHeader>
             <CardContent>
