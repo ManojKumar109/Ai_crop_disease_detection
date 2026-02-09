@@ -68,11 +68,12 @@ const Dashboard = () => {
     setLoading(true);
     setResult(null);
 
-    try {
-      const reader = new FileReader();
-      reader.onloadend = async () => {
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      try {
         const base64Image = reader.result as string;
         setSelectedImage(base64Image);
+        console.log("Image loaded, starting upload and detection...");
 
         const fileExt = file.name.split(".").pop();
         const fileName = `${user?.id}/${Date.now()}.${fileExt}`;
@@ -81,13 +82,18 @@ const Dashboard = () => {
           .from("leaf-images")
           .upload(fileName, file);
 
-        if (uploadError) throw uploadError;
+        if (uploadError) {
+          console.error("Storage upload error:", uploadError);
+          throw uploadError;
+        }
 
         const { data: { publicUrl } } = supabase.storage
           .from("leaf-images")
           .getPublicUrl(fileName);
 
         setAnalyzing(true);
+        console.log("Calling detect-disease edge function...");
+
         const { data: detectionData, error: detectionError } = await supabase.functions.invoke(
           "detect-disease",
           {
@@ -95,7 +101,16 @@ const Dashboard = () => {
           }
         );
 
-        if (detectionError) throw detectionError;
+        console.log("Detection response:", detectionData);
+
+        if (detectionError) {
+          console.error("Detection error:", detectionError);
+          throw detectionError;
+        }
+
+        if (detectionData?.error) {
+          throw new Error(detectionData.error);
+        }
 
         setResult(detectionData);
 
@@ -108,19 +123,21 @@ const Dashboard = () => {
           remedy: detectionData.remedy,
         });
 
-        if (dbError) throw dbError;
+        if (dbError) {
+          console.error("DB insert error:", dbError);
+        }
 
         toast.success("Image analyzed successfully!");
-      };
+      } catch (error: any) {
+        console.error("Detection flow error:", error);
+        toast.error(error.message || "Failed to analyze image");
+      } finally {
+        setLoading(false);
+        setAnalyzing(false);
+      }
+    };
 
-      reader.readAsDataURL(file);
-    } catch (error: any) {
-      console.error("Upload error:", error);
-      toast.error(error.message || "Failed to analyze image");
-    } finally {
-      setLoading(false);
-      setAnalyzing(false);
-    }
+    reader.readAsDataURL(file);
   };
 
   if (!user) {
