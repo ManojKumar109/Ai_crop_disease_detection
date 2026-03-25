@@ -16,6 +16,9 @@ interface DetectionResult {
   diseaseName: string;
   confidence: number;
   remedy: string;
+  isUnknown: boolean;
+  isLowConfidence: boolean;
+  warning: string | null;
 }
 
 const Dashboard = () => {

@@ -47,13 +47,18 @@ serve(async (req) => {
             4. Provide a confidence score (0-100)
             5. Suggest appropriate remedies or control methods
             
+            IMPORTANT RULES:
+            - If the image is NOT a plant leaf (e.g., random object, animal, person, etc.), set plantName to "Unknown" and diseaseName to "Not a Leaf" and confidence to 0.
+            - If the image IS a leaf but you cannot confidently identify the plant species, set plantName to "Unknown Leaf" and provide your best guess for disease with a low confidence score.
+            - Be honest about confidence. If unsure, give a lower score.
+            
             Return your response ONLY as a valid JSON object with this exact structure:
             {
-              "plantName": string (name of the plant, e.g. "Rice", "Tomato"),
+              "plantName": string (name of the plant e.g. "Rice", "Tomato", or "Unknown" / "Unknown Leaf" if unrecognizable),
               "isHealthy": boolean,
-              "diseaseName": string (disease name only, or "Healthy" if no disease),
-              "confidence": number (0-100),
-              "remedy": string (detailed treatment suggestions)
+              "diseaseName": string (disease name, "Healthy", or "Not a Leaf"),
+              "confidence": number (0-100, be honest),
+              "remedy": string (treatment suggestions, or "N/A" if not applicable)
             }
             
             Be specific and professional in your diagnosis and remedies.`
