@@ -11,6 +11,8 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface DetectionResult {
   isHealthy: boolean;
+  plantName: string;
+  leafType: string;
   diseaseName: string;
   confidence: number;
   remedy: string;
@@ -268,7 +270,8 @@ const Dashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="grid gap-6 md:grid-cols-3">
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  {/* Status */}
                   <Card className="p-6 bg-gradient-to-br from-primary/5 to-accent/5 border-border/50 shadow-soft hover:shadow-medium transition-shadow">
                     <div className="flex items-center gap-3 mb-3">
                       {result.isHealthy ? (
@@ -282,6 +285,25 @@ const Dashboard = () => {
                       {result.isHealthy ? "✓ Healthy" : "⚠ Disease Detected"}
                     </p>
                   </Card>
+                  {/* Plant Name */}
+                  <Card className="p-6 bg-gradient-to-br from-primary/5 to-accent/5 border-border/50 shadow-soft hover:shadow-medium transition-shadow">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-xl">🌿</span>
+                      <p className="text-sm text-muted-foreground font-medium uppercase">Plant Name</p>
+                    </div>
+                    <p className="text-2xl font-bold">{result.plantName}</p>
+                  </Card>
+                  {/* Leaf Type */}
+                  <Card className="p-6 bg-gradient-to-br from-secondary/20 to-secondary/10 border-border/50 shadow-soft hover:shadow-medium transition-shadow">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-xl">🍃</span>
+                      <p className="text-sm text-muted-foreground font-medium uppercase">Leaf Type</p>
+                    </div>
+                    <p className={`text-2xl font-bold ${result.isHealthy ? "text-primary" : "text-destructive"}`}>
+                      {result.leafType}
+                    </p>
+                  </Card>
+                  {/* Disease */}
                   <Card className="p-6 bg-gradient-to-br from-secondary/20 to-secondary/10 border-border/50 shadow-soft hover:shadow-medium transition-shadow">
                     <div className="flex items-center gap-3 mb-3">
                       <Leaf className="h-6 w-6 text-primary" />
@@ -289,6 +311,7 @@ const Dashboard = () => {
                     </div>
                     <p className="text-2xl font-bold">{result.diseaseName}</p>
                   </Card>
+                  {/* Confidence */}
                   <Card className="p-6 bg-gradient-to-br from-accent/10 to-accent/5 border-border/50 shadow-soft hover:shadow-medium transition-shadow">
                     <div className="flex items-center gap-3 mb-3">
                       <Sparkles className="h-6 w-6 text-primary" />
