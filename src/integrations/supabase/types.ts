@@ -22,6 +22,8 @@ export type Database = {
           id: string
           image_url: string
           is_healthy: boolean
+          leaf_type: string | null
+          plant_name: string | null
           remedy: string | null
           user_id: string
         }
@@ -32,6 +34,8 @@ export type Database = {
           id?: string
           image_url: string
           is_healthy?: boolean
+          leaf_type?: string | null
+          plant_name?: string | null
           remedy?: string | null
           user_id: string
         }
@@ -42,6 +46,8 @@ export type Database = {
           id?: string
           image_url?: string
           is_healthy?: boolean
+          leaf_type?: string | null
+          plant_name?: string | null
           remedy?: string | null
           user_id?: string
         }
@@ -73,7 +79,23 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_all_detections: {
+        Args: never
+        Returns: {
+          confidence: number
+          created_at: string
+          disease_name: string
+          id: string
+          image_url: string
+          is_healthy: boolean
+          leaf_type: string
+          plant_name: string
+          remedy: string
+          user_email: string
+          user_id: string
+          user_name: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
