@@ -117,7 +117,20 @@ const Dashboard = () => {
           throw new Error(detectionData.error);
         }
 
-        setResult(detectionData);
+        const raw = detectionData;
+        const isUnknown = raw.plantName === "Unknown" || raw.plantName === "Unknown Leaf" || raw.diseaseName === "Not a Leaf";
+        const isLowConfidence = raw.confidence < 70;
+        let warning: string | null = null;
+        if (isUnknown) warning = "Unknown leaf — detection may be inaccurate";
+        else if (isLowConfidence) warning = "Low confidence prediction";
+
+        const enriched: DetectionResult = {
+          ...raw,
+          isUnknown,
+          isLowConfidence,
+          warning,
+        };
+        setResult(enriched);
 
         const { error: dbError } = await supabase.from("detections").insert({
           user_id: user?.id,
