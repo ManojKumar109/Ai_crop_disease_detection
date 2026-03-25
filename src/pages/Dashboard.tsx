@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
-import { Upload, LogOut, Leaf, History, Loader2, Camera, Sparkles, AlertTriangle, CheckCircle2 } from "lucide-react";
+import { Upload, LogOut, Leaf, History, Loader2, Camera, Sparkles, AlertTriangle, CheckCircle2, Shield } from "lucide-react";
 import { User, Session } from "@supabase/supabase-js";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
@@ -139,7 +139,9 @@ const Dashboard = () => {
           is_healthy: detectionData.isHealthy,
           confidence: detectionData.confidence,
           remedy: detectionData.remedy,
-        });
+          plant_name: detectionData.plantName || null,
+          leaf_type: detectionData.leafType || null,
+        } as any);
 
         if (dbError) {
           console.error("DB insert error:", dbError);
@@ -182,6 +184,15 @@ const Dashboard = () => {
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
             <ThemeToggle />
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => navigate("/admin")}
+              className="border-2"
+            >
+              <Shield className="h-5 w-5 mr-2" />
+              Admin
+            </Button>
             <Button
               variant="outline"
               size="lg"

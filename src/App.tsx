@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 import History from "./pages/History";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/~oauth" element={<AuthCallback />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/history" element={<History />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
