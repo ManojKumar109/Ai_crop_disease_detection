@@ -139,7 +139,9 @@ const Dashboard = () => {
           is_healthy: detectionData.isHealthy,
           confidence: detectionData.confidence,
           remedy: detectionData.remedy,
-        });
+          plant_name: detectionData.plantName || null,
+          leaf_type: detectionData.leafType || null,
+        } as any);
 
         if (dbError) {
           console.error("DB insert error:", dbError);
