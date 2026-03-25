@@ -16,6 +16,9 @@ interface DetectionResult {
   diseaseName: string;
   confidence: number;
   remedy: string;
+  isUnknown: boolean;
+  isLowConfidence: boolean;
+  warning: string | null;
 }
 
 const Dashboard = () => {
@@ -114,7 +117,20 @@ const Dashboard = () => {
           throw new Error(detectionData.error);
         }
 
-        setResult(detectionData);
+        const raw = detectionData;
+        const isUnknown = raw.plantName === "Unknown" || raw.plantName === "Unknown Leaf" || raw.diseaseName === "Not a Leaf";
+        const isLowConfidence = raw.confidence < 70;
+        let warning: string | null = null;
+        if (isUnknown) warning = "Unknown leaf — detection may be inaccurate";
+        else if (isLowConfidence) warning = "Low confidence prediction";
+
+        const enriched: DetectionResult = {
+          ...raw,
+          isUnknown,
+          isLowConfidence,
+          warning,
+        };
+        setResult(enriched);
 
         const { error: dbError } = await supabase.from("detections").insert({
           user_id: user?.id,
@@ -270,6 +286,13 @@ const Dashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
+                {/* Warning Banner */}
+                {result.warning && (
+                  <div className={`flex items-center gap-3 p-4 rounded-xl border ${result.isUnknown ? "bg-destructive/10 border-destructive/30 text-destructive" : "bg-yellow-500/10 border-yellow-500/30 text-yellow-700 dark:text-yellow-400"}`}>
+                    <AlertTriangle className="h-5 w-5 shrink-0" />
+                    <span className="font-medium">{result.warning}</span>
+                  </div>
+                )}
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {/* Status */}
                   <Card className="p-6 bg-gradient-to-br from-primary/5 to-accent/5 border-border/50 shadow-soft hover:shadow-medium transition-shadow">
@@ -282,32 +305,24 @@ const Dashboard = () => {
                       <p className="text-sm text-muted-foreground font-medium uppercase">Status</p>
                     </div>
                     <p className={`text-2xl font-bold ${result.isHealthy ? "text-primary" : "text-destructive"}`}>
-                      {result.isHealthy ? "✓ Healthy" : "⚠ Disease Detected"}
+                      {result.isUnknown ? "⚠ Unknown" : result.isHealthy ? "✓ Healthy" : "⚠ Disease Detected"}
                     </p>
                   </Card>
-                  {/* Plant Name */}
+                  {/* Leaf / Plant Name */}
                   <Card className="p-6 bg-gradient-to-br from-primary/5 to-accent/5 border-border/50 shadow-soft hover:shadow-medium transition-shadow">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-xl">🌿</span>
-                      <p className="text-sm text-muted-foreground font-medium uppercase">Plant Name</p>
+                      <p className="text-sm text-muted-foreground font-medium uppercase">Leaf Name</p>
                     </div>
-                    <p className="text-2xl font-bold">{result.plantName}</p>
-                  </Card>
-                  {/* Leaf Type */}
-                  <Card className="p-6 bg-gradient-to-br from-secondary/20 to-secondary/10 border-border/50 shadow-soft hover:shadow-medium transition-shadow">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-xl">🍃</span>
-                      <p className="text-sm text-muted-foreground font-medium uppercase">Leaf Type</p>
-                    </div>
-                    <p className={`text-2xl font-bold ${result.isHealthy ? "text-primary" : "text-destructive"}`}>
-                      {result.leafType}
+                    <p className={`text-2xl font-bold ${result.isUnknown ? "text-muted-foreground" : ""}`}>
+                      {result.isUnknown ? "Unknown Leaf" : `${result.plantName} Leaf`}
                     </p>
                   </Card>
                   {/* Disease */}
                   <Card className="p-6 bg-gradient-to-br from-secondary/20 to-secondary/10 border-border/50 shadow-soft hover:shadow-medium transition-shadow">
                     <div className="flex items-center gap-3 mb-3">
                       <Leaf className="h-6 w-6 text-primary" />
-                      <p className="text-sm text-muted-foreground font-medium uppercase">Disease Type</p>
+                      <p className="text-sm text-muted-foreground font-medium uppercase">Disease</p>
                     </div>
                     <p className="text-2xl font-bold">{result.diseaseName}</p>
                   </Card>
@@ -315,19 +330,24 @@ const Dashboard = () => {
                   <Card className="p-6 bg-gradient-to-br from-accent/10 to-accent/5 border-border/50 shadow-soft hover:shadow-medium transition-shadow">
                     <div className="flex items-center gap-3 mb-3">
                       <Sparkles className="h-6 w-6 text-primary" />
-                      <p className="text-sm text-muted-foreground font-medium uppercase">Confidence Level</p>
+                      <p className="text-sm text-muted-foreground font-medium uppercase">Confidence</p>
                     </div>
-                    <p className="text-2xl font-bold mb-3">{result.confidence}%</p>
+                    <p className={`text-2xl font-bold mb-3 ${result.isLowConfidence ? "text-yellow-600 dark:text-yellow-400" : ""}`}>
+                      {result.confidence}%
+                      {result.isLowConfidence && <span className="text-sm ml-2 font-normal">(Low)</span>}
+                    </p>
                     <Progress value={result.confidence} className="h-3 transition-all duration-500" />
                   </Card>
                 </div>
-                <Card className="p-6 bg-gradient-card border-border/50 shadow-soft">
-                  <p className="text-sm text-muted-foreground mb-3 font-medium uppercase flex items-center gap-2">
-                    <Sparkles className="h-4 w-4 text-primary" />
-                    Recommended Treatment
-                  </p>
-                  <p className="text-base leading-relaxed">{result.remedy}</p>
-                </Card>
+                {!result.isUnknown && (
+                  <Card className="p-6 bg-gradient-card border-border/50 shadow-soft">
+                    <p className="text-sm text-muted-foreground mb-3 font-medium uppercase flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 text-primary" />
+                      Recommended Treatment
+                    </p>
+                    <p className="text-base leading-relaxed">{result.remedy}</p>
+                  </Card>
+                )}
               </CardContent>
             </Card>
           )}
