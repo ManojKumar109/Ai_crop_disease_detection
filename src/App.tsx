@@ -31,6 +31,7 @@ const App = () => (
             <Route path="/~oauth" element={<AuthCallback />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/history" element={<History />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
