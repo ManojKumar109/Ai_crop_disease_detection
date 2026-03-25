@@ -41,15 +41,17 @@ serve(async (req) => {
             role: 'system',
             content: `You are an expert plant pathologist specializing in leaf disease detection. 
             Analyze the provided leaf image and determine:
-            1. Whether the leaf is healthy or diseased
-            2. If diseased, identify the specific disease name
-            3. Provide a confidence score (0-100)
-            4. Suggest appropriate remedies or control methods
+            1. The plant name (e.g., Rice, Tomato, Potato, Wheat, Corn, Apple, Grape)
+            2. Whether the leaf is healthy or diseased
+            3. If diseased, identify the specific disease name
+            4. Provide a confidence score (0-100)
+            5. Suggest appropriate remedies or control methods
             
             Return your response ONLY as a valid JSON object with this exact structure:
             {
+              "plantName": string (name of the plant, e.g. "Rice", "Tomato"),
               "isHealthy": boolean,
-              "diseaseName": string (or "Healthy" if no disease),
+              "diseaseName": string (disease name only, or "Healthy" if no disease),
               "confidence": number (0-100),
               "remedy": string (detailed treatment suggestions)
             }
@@ -109,14 +111,27 @@ serve(async (req) => {
       result = JSON.parse(jsonString);
     } catch (parseError) {
       console.error('Failed to parse AI response:', parseError);
-      // Fallback response
       result = {
+        plantName: 'Unknown',
         isHealthy: false,
         diseaseName: 'Analysis Completed',
         confidence: 75,
         remedy: aiResponse
       };
     }
+
+    // Handle "Plant___Disease" format in diseaseName
+    if (result.diseaseName && result.diseaseName.includes('___')) {
+      const parts = result.diseaseName.split('___');
+      result.plantName = result.plantName || parts[0];
+      result.diseaseName = parts[1];
+    }
+
+    // Derive leafType
+    const isHealthy = result.diseaseName === 'Healthy' || result.isHealthy;
+    result.isHealthy = isHealthy;
+    result.leafType = isHealthy ? 'Healthy Leaf' : 'Diseased Leaf';
+    result.plantName = result.plantName || 'Unknown';
 
     return new Response(JSON.stringify(result), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
